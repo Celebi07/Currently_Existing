@@ -1,0 +1,24 @@
+package com.example.tour;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+@Service
+public class Userserviceimpl {
+  @Autowired
+  private Userservice userservice;
+  
+  public void adduser(User user){
+	  userservice.save(user);
+  }
+  
+  public void updateuser(User user,String email) {
+	  userservice.save(user);
+  }
+  
+  public void deletebyEmail(String email) {
+	  userservice.deleteById(email);
+  }
+  
+  
+}

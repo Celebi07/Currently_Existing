@@ -1,0 +1,45 @@
+package com.example.finalProject.controller;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.config.annotation.CorsRegistry;
+import org.springframework.web.servlet.config.annotation.EnableWebMvc;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+
+import com.example.finalProject.dto.SignUpDTO;
+import com.example.finalProject.dto.UserDTO;
+import com.example.finalProject.services.auth.AuthService;
+
+@RestController
+public class SignUpController {
+	@Autowired
+	private AuthService authService;
+	
+	@EnableWebMvc
+	public class WebConfig implements WebMvcConfigurer {
+
+		@Override
+		public void addCorsMappings(CorsRegistry registry) {
+
+			registry.addMapping("/signup")
+				.allowedOrigins("http://localhost:3000")
+				.allowedMethods("GET")
+				.allowedHeaders( "Content-type","Access-Control-Allow-Origin")
+			      .exposedHeaders( "Content-type","Access-Control-Allow-Origin")
+				.allowCredentials(true).maxAge(3600);
+		}
+	}
+	
+	@PostMapping("/signup")
+	public ResponseEntity<?> signUpUser(@RequestBody SignUpDTO signUpDTO){
+		UserDTO createdUser = authService.createUser(signUpDTO);
+		if(createdUser == null) {
+			return new ResponseEntity<>("User not created, Try again Later!!!",HttpStatus.BAD_REQUEST);
+		}
+		return new ResponseEntity<>(createdUser,HttpStatus.CREATED);
+	}
+}

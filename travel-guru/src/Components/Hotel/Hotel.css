@@ -1,0 +1,5 @@
+.hotel:hover img {
+    transition: transform 0.10s 0s;
+    transform: scale(1.01);
+    border-radius: 0%;
+}

@@ -1,0 +1,8 @@
+package com.example.tour;
+
+import org.springframework.data.repository.CrudRepository;
+
+public interface Userservice extends CrudRepository<User,String> 
+{
+    
+}

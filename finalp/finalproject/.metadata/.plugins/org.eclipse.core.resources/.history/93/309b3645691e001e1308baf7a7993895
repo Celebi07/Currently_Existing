@@ -1,0 +1,10 @@
+package com.example.finalProject.service;
+
+import org.springframework.data.repository.CrudRepository;
+
+import com.example.finalProject.model.userApi;
+
+public interface Userservice extends CrudRepository<userApi,String> 
+{
+    
+}

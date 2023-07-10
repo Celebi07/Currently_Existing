@@ -1,0 +1,31 @@
+package com.example.finalProject.service;
+
+import com.example.finalProject.model.userApi;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+@Service
+public class userApiServiceImpl {
+  @Autowired
+  private Userservice userservice;
+  
+  public void adduser(userApi user){
+	  userservice.save(user);
+  }
+  
+  public void updateuser(userApi user,String email) {
+	  userservice.save(user);
+  }
+  
+  public void deletebyEmail(String email) {
+	  userservice.deleteById(email);
+  }
+  
+  public List<userApi> recieveusers() {
+	  return userservice.all();
+  }
+  
+}

@@ -1,0 +1,60 @@
+package com.example.finalProject.model;
+
+import jakarta.persistence.*;
+
+
+
+@Entity
+@Table(name = "user_api")
+
+public class userApi {
+  @Id
+  private String email;
+   private String name;
+   private int phonenumber;
+   private  String message;
+   
+   public userApi() {
+	   
+   }
+   
+   public userApi(String name, String email, int phonenumber, String message) {
+	super();
+	this.name = name;
+	this.email = email;
+	this.phonenumber = phonenumber;
+	this.message = message;
+}
+public String getName() {
+	return name;
+}
+public void setName(String name) {
+	this.name = name;
+}
+public String getEmail() {
+	return email;
+}
+public void setEmail(String email) {
+	this.email = email;
+}
+public int getPhonenumber() {
+	return phonenumber;
+}
+public void setPhonenumber(int phonenumber) {
+	this.phonenumber = phonenumber;
+}
+public String getMessage() {
+	return message;
+}
+public void setMessage(String message) {
+	this.message = message;
+}
+@ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+@JoinTable(
+        name = "users_roles",
+        joinColumns = @JoinColumn(name = "user_id"),
+        inverseJoinColumns = @JoinColumn(name = "role_id")
+        )
+private Set<Role> roles = new HashSet<>();
+   
+}

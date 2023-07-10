@@ -1,0 +1,22 @@
+package com.example.finalProject.model;
+ 
+import jakarta.persistence.*;
+ 
+@Entity
+@Table(name = "roles")
+public class Role {
+    @Id
+    @Column(name = "role_id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int id;
+     
+    private String role_name;
+ 
+    public String getname() {
+    	return role_name;
+    }
+    public Integer getId() {
+        return id;
+    }
+      
+}

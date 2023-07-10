@@ -1,0 +1,71 @@
+package com.example.tour.Controller;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.config.annotation.CorsRegistry;
+import org.springframework.web.servlet.config.annotation.EnableWebMvc;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+
+import com.example.tour.User;
+import com.example.tour.Userserviceimpl;
+@CrossOrigin(origins = "*")
+@RestController
+@RequestMapping("/user")
+@ResponseBody
+public class Controller {
+//	@Configuration
+//	public class WebConfig
+//	{
+//	    @Bean
+//	    public WebMvcConfigurer corsConfigurer()
+//	    {
+//	        return new WebMvcConfigurer() {
+//	            @Override
+//	            public void addCorsMappings(CorsRegistry registry) {
+//	                registry.addMapping("/user/**").allowedOrigins("http://127.0.0.1:5500/user.html");
+//	            }
+//	        };
+//	    }
+//	}
+//	@Configuration
+	@EnableWebMvc
+	public class WebConfig implements WebMvcConfigurer {
+
+		@Override
+		public void addCorsMappings(CorsRegistry registry) {
+
+			registry.addMapping("/user")
+				.allowedOrigins("*")
+				.allowedMethods("POST")
+				.allowedHeaders( "Content-type")
+			      .exposedHeaders( "Content-type")
+				.allowCredentials(true).maxAge(3600);
+
+			// Add more mappings...
+		}
+	}
+	
+	@Autowired
+	private Userserviceimpl userserviceimpl;
+	@CrossOrigin(origins = "*", allowedHeaders = "*")
+	@PostMapping("/user")
+	public void adduser(@RequestBody User user) {
+		userserviceimpl.adduser(user);
+	}
+	
+	@PutMapping("/user/{email}")
+	public void updateuser(@RequestBody User user,@PathVariable String email) {
+		userserviceimpl.updateuser(user, email);
+	}
+	
+	@DeleteMapping("/user/{email}")
+   public void deletebyuser(@PathVariable String email) {
+		userserviceimpl.deletebyEmail(email);
+	}
+}
